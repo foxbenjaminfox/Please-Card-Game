@@ -1,0 +1,25 @@
+.win {
+	font-size: 2000%;
+	color:teal;
+}
+
+.lose {
+	font-size: 2000%;
+	color:red;
+}
+
+#gamestate {
+	background-color: aquamarine;
+}
+
+#message {
+	background-color: LightSteelBlue;
+}
+
+#opponent-name {
+	color:red;
+}
+
+#you-name {
+	color:blue;
+}

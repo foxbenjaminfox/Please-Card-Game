@@ -1,0 +1,49 @@
+<ion-view title="Game">
+  <ion-nav-buttons side="left">
+    <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+  </ion-nav-buttons>
+    <div ng-init="op = opponents[0]" class="card">
+      <div ng-show="op.onTheTable().length>0">
+        <div class="item item-divider">In front of {{op.name}}:</div>
+        <div class="row">
+          <button ng-repeat="card in op.onTheTable()" class="col button"  ng-class="card.notice?'button-assertive':'button-stable'">    {{card.display()}}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="row" id="gamestate">
+        <div class="col col-offset-33">Deck ({{game.deck.cards.length}})</div>
+        <div class="col">
+          {{game.topCards()}}
+        </div>
+      </div>
+      <div class="row" id="message" ng-show="game.message">
+        <div class="col col-offset-20">{{game.message}}</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <ion-scroll zooming="true" direction="x" ng-show="me.hand.length>0">
+        <div class="item item-divider">{{me.name}}'s Hand:</div>
+        <div class="row">
+          <button ng-repeat="card in me.hand" class="col button button-stable" ng-click="me.play(card,me.hand,true,askHuman)"> {{card.display()}}
+        </div>
+        </button>
+      </ion-scroll>
+      <div ng-show="me.onTheTable().length>0">
+        <div class="item item-divider">In front of {{me.name}}:</div>
+        <div class="row">
+          <button ng-repeat="card in me.onTheTable()" class="col button" ng-click="me.play(card,me.faceUp.length>0?me.faceUp:me.faceDown,false,askHuman)" ng-class="card.notice?'button-assertive':'button-stable'"> {{card.display()}} </button>
+        </div>
+      </div>
+      </div>
+    </div>
+  </ion-content>
+  <div class="bar bar-footer bar-balanced">
+    <button class="button button-icon icon ion-android-sort" ng-click="me.sortHand()"></button>
+    <div class="title">{{game.whoseTurn().name}}'s Turn</div>
+    <button class="button button-icon icon ion-arrow-graph-up-right" ng-click="pickUp()"></button>
+  </div>
+</ion-view>

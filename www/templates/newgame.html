@@ -1,0 +1,25 @@
+<div class="modal">
+  <ion-header-bar>
+    <h1 class="title">Choose three cards to put down</h1>
+    <div class="buttons">
+      <button class="button button-clear" ng-click="modal.hide()">Close</button>
+    </div>
+  </ion-header-bar>
+  <ion-content>
+    <form ng-submit="playGame()">
+      <ul class="list">
+       <li class="item item-toggle" ng-repeat="card in hand">
+            {{card.name()}}
+          <label class="toggle toggle-assertive">
+            <input type="checkbox" ng-model="handDown[$index]" ng-disabled="canPlaceCard($index)">
+            <div class="track">
+              <div class="handle"></div>
+            </div>
+          </label>
+       </li>
+      </ul>
+      <button class="button button-block button-positive" type="submit" ng-disabled="numCardsDown() != 3">Play</button>
+    </form>
+  </ion-content>
+</div>
+

@@ -1,0 +1,31 @@
+<ion-view title="Settings">
+  <ion-nav-buttons side="left">
+    <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+  </ion-nav-buttons>
+  <ion-content class="has-header">
+    <ul class="list">
+      <label class="item item-input">
+          <span class="input-label">Your name:</span>
+          <input type="text" ng-model="localStorage.youName" id="you-name">
+      </label>
+      <label class="item item-input">
+          <span class="input-label">Your opponent's name:</span>
+          <input type="text" ng-model="localStorage.opponentName" id="opponent-name">
+      </label>
+
+      <button class="button button-positive button-block"
+          ng-click="extras = !extras">
+        {{extras?'Less':'More'}}
+      </button>
+
+
+      <div class="item range range-positive" ng-show="extras">
+        <button class="button button-light" ng-click="localStorage.speed=100">Game Speed</button>  0%
+        <input type="range" name="volume" min="0" max="300"
+        ng-model="localStorage.speed">
+        300% <i class="icon ion-speedometer"></i>
+      </div>
+
+  	</ul>
+  </ion-content>
+</ion-view>
