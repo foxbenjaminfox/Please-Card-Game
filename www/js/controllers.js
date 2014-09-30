@@ -11,7 +11,7 @@ angular.module('pleaseApp.controllers', [])
 
   $scope.generateStats = function(){
     $scope.wonGames = $window.localStorage.wonGames || 0;
-    $scope.lostGames = $window.localStorage.lostnGames || 0;
+    $scope.lostGames = $window.localStorage.lostGames || 0;
 
     $scope.totalGames = Number($scope.wonGames) +
                         Number($scope.lostGames);
