@@ -41,25 +41,26 @@ angular.module('pleaseApp.controllers', [])
 
     $scope.modal.hide();
     $location.url('app/game');
-  };
+  }
 
   $scope.newgame = function() {
     game.generate(
       Number($window.localStorage.speed || 100));
     $scope.makeHand();
     $scope.modal.show();
-  };
+  }
 
   $scope.numCardsDown = function(){
     if (!$scope.handDown) return 0;
     return $scope.handDown.reduce(function(count, down){
         if (down) return count + 1;
         return count;
-    },0)
+    }, 0)
   }
+
   $scope.canPlaceCard = function(index) {
-    if ( $scope.numCardsDown() >= 3)
-      return !$scope.handDown[index];
+    if ($scope.numCardsDown() >= 3)
+      return !($scope.handDown[index]);
     else return false;
   }
 
@@ -69,8 +70,8 @@ angular.module('pleaseApp.controllers', [])
     for (var i = 0; i < 6; i++) {
       $scope.hand[i] = game.deck.drawCard();
       $scope.handDown[i] = false;
-    };
-  };
+    }
+  }
 })
 
 .controller('GameCtrl', function($scope, $location,

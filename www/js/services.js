@@ -233,7 +233,7 @@ angular.module('pleaseApp.services', [])
 
       this.sortHand = function(){
         this.hand = _.sortBy(this.hand, function(card){
-          return game.cardValues.indexOf(card.value);
+          return -game.cardValues.indexOf(card.value);
         })
       }
 
@@ -272,7 +272,7 @@ angular.module('pleaseApp.services', [])
         }
         this.sortHand();
         for (var i = 0; i < 3; i++) {
-          this.faceUp[i] = this.hand.pop();
+          this.faceUp[i] = this.hand.shift();
         }
       }
 
