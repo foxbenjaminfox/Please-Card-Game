@@ -13,9 +13,10 @@ angular.module('pleaseApp.controllers', [])
     $scope.wonGames = $window.localStorage.wonGames || 0;
     $scope.lostGames = $window.localStorage.lostnGames || 0;
 
-    $scope.totalGames = $scope.wonGames + $scope.lostGames;
+    $scope.totalGames = Number($scope.wonGames) +
+                        Number($scope.lostGames);
     $scope.percentWon = $scope.totalGames?
-                  $scope.wonGames/$scope.totalGames*100:0;
+                  ($scope.wonGames/$scope.totalGames)*100:0;
   }
 
   $scope.playGame = function() {
@@ -74,7 +75,7 @@ angular.module('pleaseApp.controllers', [])
 
 .controller('GameCtrl', function($scope, $location,
                         game, $ionicModal) {
-  if (game.players.length==0) $location.path('app/main')
+  if (!game.players) $location.path('app/main');
   
   $scope.me = _.find(game.players, function(player){
     return !player.ai;
