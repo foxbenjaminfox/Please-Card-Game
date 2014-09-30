@@ -17,7 +17,7 @@
 
       <div class="item item-icon-left" ng-init="generateStats()">
         <i class="icon ion-stats-bars"></i>
-        Won {{wonGames}}/{{totalGames}} games. ({{percentWon}}%)
+        Won {{wonGames}}/{{totalGames}} games. ({{percentWon | number:2}}%)
       </div>
 	</ul>
   </ion-content>
