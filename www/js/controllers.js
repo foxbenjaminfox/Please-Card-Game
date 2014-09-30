@@ -9,6 +9,14 @@ angular.module('pleaseApp.controllers', [])
     $scope.modal = modal;
   });
 
+  $scope.generateStats = function(){
+    $scope.wonGames = $window.localStorage.wonGames || 0;
+    $scope.lostGames = $window.localStorage.lostnGames || 0;
+
+    $scope.totalGames = $scope.wonGames + $scope.lostGames;
+    $scope.percentWon = $scope.totalGames?
+                  $scope.wonGames/$scope.totalGames*100:0;
+  }
 
   $scope.playGame = function() {
     var me = new game.Player(
@@ -125,13 +133,35 @@ angular.module('pleaseApp.controllers', [])
       });
   }
 })
-.controller('WinCtrl', function($scope) {
+.controller('WinCtrl', function($scope, $window) {
   $scope.won = true;
   $scope.text = 'Win'
+  $scope.adjusted = false;
+
+  $scope.adjustStats = function(){
+    if (!$scope.adjusted){
+      if ($window.localStorage.wonGames)
+          $window.localStorage.wonGames++;
+      else
+          $window.localStorage.wonGames = 1;
+    }
+    $scope.adjusted = true;
+  }
 })
 .controller('LoseCtrl', function($scope) {
   $scope.won = false;
   $scope.text = 'Lose'
+  $scope.adjusted = false;
+
+  $scope.adjustStats = function(){
+    if (!$scope.adjusted){
+      if ($window.localStorage.lostGames)
+          $window.localStorage.lostGames++;
+      else
+          $window.localStorage.lostGames = 1;
+    }
+    $scope.adjusted = true;
+  }
 })
 .controller('SettingsCtrl', function($scope, $window) {
   $scope.localStorage = $window.localStorage;
