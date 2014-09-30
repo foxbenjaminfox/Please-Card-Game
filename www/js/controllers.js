@@ -150,7 +150,7 @@ angular.module('pleaseApp.controllers', [])
     $scope.adjusted = true;
   }
 })
-.controller('LoseCtrl', function($scope) {
+.controller('LoseCtrl', function($scope, $window) {
   $scope.won = false;
   $scope.text = 'Lose'
   $scope.adjusted = false;
