@@ -28,13 +28,12 @@
     </div>
 
     <div class="card">
-      <ion-scroll zooming="true" direction="x" ng-show="me.hand.length>0">
-        <div class="item item-divider game-item">{{me.name}}'s Hand:</div>
-        <div class="row">
-          <button ng-repeat="card in me.hand" class="col button button-stable" ng-click="me.play(card,me.hand,true,askHuman)"> {{card.display()}}
-        </div>
+      <div class="item item-divider game-item">{{me.name}}'s Hand:</div>
+      <div class="row" ng-repeat="i in me.handRows()">
+        <button class="col button button-stable card-button" ng-click="me.play(card,me.hand,true,askHuman)" ng-repeat="card in me.hand.slice(6*i,6*(i+1))"> {{card.display()}}
         </button>
-      </ion-scroll>
+      </div>
+
       <div ng-show="me.onTheTable().length>0">
         <div class="item item-divider game-item">In front of {{me.name}}:</div>
         <div class="row">

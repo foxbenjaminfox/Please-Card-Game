@@ -217,6 +217,11 @@ angular.module('pleaseApp.services', [])
         if (this.ai) $location.path('app/lose');
         else $location.path('app/win');
       }
+
+      this.handRows = function(){
+        return _.range(this.hand.length/6);
+      }
+
       this.pickUp = function(){
         this.mayPlay = false;
         $timeout(_.bind(function(){
