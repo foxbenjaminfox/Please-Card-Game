@@ -1,8 +1,5 @@
-README for Please
+Please
 =================
-Created Thursday 02 October 2014
-
-# Please
 
 This is an implementation of the card game occasionally known as "Please", in the form of an Ionic app.
 
@@ -45,7 +42,7 @@ Some cards are considered special:
 
 ## Playing Instructions
 
-Playing the game in the app should be self explanatory. You tap a card to play it, and you can adjust the settings
+Playing the game in the app should be pretty self-explanatory. You tap a card to play it, and you can adjust the settings
 (like what you and your opponent are called) in the settings menu. To pick up the discard pile, tap the icon in the lower right corner,
 and if you tap the icon in the bottom left, it will sort your hand. Double tap it in order to reverse the direction of the sorting.
 
