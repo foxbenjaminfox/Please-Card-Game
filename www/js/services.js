@@ -67,15 +67,7 @@ angular.module('pleaseApp.services', [])
       }
 
       this.onPlay = function(){
-
-        var fourOfAKind = true;
-        for (var i = 2; i <= 4; i++) {
-          var card = game.cardPile[game.cardPile.length-i];
-          if (!card ||card.value != this.value){
-            fourOfAKind = false;
-          }
-        }
-
+        var fourOfAKind = this.isFourOfAKind();
         if (fourOfAKind || this.value == 'Ten'){
           game.messageExpire = game.turn + 2;
           game.message = fourOfAKind?"Four of a kind: ":"A 10 has been played: "
@@ -83,7 +75,22 @@ angular.module('pleaseApp.services', [])
                   " cards eliminated"
           game.cardPile = [];
         }
+      }
 
+      this.isFourOfAKind = function(){
+        var fourOfAKind = true;
+        for (var i = 2; i <= 4; i++) {
+          var card = game.cardPile[game.cardPile.length-i];
+          if (!card ||card.value != this.value){
+            fourOfAKind = false;
+          }
+        }
+        return fourOfAKind;
+      }
+
+      this.canPlayAgain = function(){
+        return this.isFourOfAKind() || this.value == 'Ten'
+              || this.value == 'Two';
       }
     }
 
@@ -186,7 +193,7 @@ angular.module('pleaseApp.services', [])
             $timeout(_.bind(this.win,this),15*gameSpeed);
         }
         else {
-          this.mayPlay = (card.value == 'Ten' || card.value == 'Two');
+          this.mayPlay = card.canPlayAgain();
           if (this.mayPlay){
             card.onPlay(this);
             if (this.ai) {
