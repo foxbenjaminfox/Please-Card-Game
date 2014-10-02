@@ -79,9 +79,9 @@ angular.module('pleaseApp.services', [])
 
       this.isFourOfAKind = function(){
         var fourOfAKind = true;
-        for (var i = 2; i <= 4; i++) {
+        for (var i = 1; i <= 4; i++) {
           var card = game.cardPile[game.cardPile.length-i];
-          if (!card ||card.value != this.value){
+          if (!card || card.value !== this.value){
             fourOfAKind = false;
           }
         }
@@ -281,7 +281,7 @@ angular.module('pleaseApp.services', [])
             callback(card,from,[card]);
             return;
           }
-          askHuman(card,from, callback);
+          askHuman(card, from, callback);
         }
       }
 

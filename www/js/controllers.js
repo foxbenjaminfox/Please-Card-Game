@@ -96,11 +96,12 @@ angular.module('pleaseApp.controllers', [])
 
   $scope.askHuman = function(card, from, callback){
     $scope.playable = _.filter(from, function(otherCard){
-      return (otherCard.value == card.value);
+      return (otherCard.value === card.value);
     });
 
     $scope.play = _.map(from, function(otherCard){
-      return otherCard == card;
+      return otherCard.value === card.value &&
+                      otherCard.suit === card.suit;
     });
 
     $scope.submitText = function(){
@@ -121,10 +122,11 @@ angular.module('pleaseApp.controllers', [])
         else
           $scope.play[i] = null;
       }
-      if (someCard)
+      if (someCard){
         callback(card,from,_.filter($scope.play,function(card){
-          return card !== null;
+          return card !== null && card !== undefined;
         }));
+      }
     }
 
     $ionicModal.fromTemplateUrl('templates/choose.html', {
