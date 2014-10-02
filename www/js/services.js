@@ -7,9 +7,9 @@ angular.module('pleaseApp.services', [])
     var game = this;
 
     game.cardValues = [
-          'Three', 'Four', 'Five', 'Six',
-          'Seven', 'Eight', 'Nine', 'Jack',
-          'Queen','King', 'Ace',
+          'Three', 'Four', 'Five', //'Six',
+          //'Seven', 'Eight', 'Nine', 'Jack',
+          //'Queen','King', 'Ace',
           'Two','Ten',
           ];
 
@@ -179,6 +179,7 @@ angular.module('pleaseApp.services', [])
       }
       this.executeCardPlaying = function(card, from, all){
         var wait = this.ai?0:6.5*gameSpeed;
+
         if (card.hidden) wait = 1000;
         card.hidden = false;
         for (var i = 0; i < all.length; i++) {
@@ -298,9 +299,15 @@ angular.module('pleaseApp.services', [])
       this.onTheTable = function(){
         table = [];
         for (var i = 0; i < this.faceDown.length; i++) {
-          if (this.faceUp[i] !== null)
+          if (this.faceUp[i] !== undefined)
             table[i] = this.faceUp[i];
           else table[i] = this.faceDown[i];
+        }
+        if (!this.ai){
+          console.log('---');
+          console.log(this.faceUp);
+          console.log(this.faceDown);
+          console.log(table);
         }
         return table;
       }
