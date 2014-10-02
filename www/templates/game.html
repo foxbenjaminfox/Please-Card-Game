@@ -1,10 +1,13 @@
-<ion-view title="Game">
+<ion-view title="Game" class="game">
   <ion-nav-buttons side="left">
     <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
   </ion-nav-buttons>
+    <br/><br/>
     <div ng-init="op = opponents[0]" class="card">
       <div ng-show="op.onTheTable().length>0">
-        <div class="item item-divider">In front of {{op.name}}:</div>
+        <div class="item item-divider game-item">In front of {{op.name}}:
+          ({{op.hand.length}} cards in hand)
+        </div>
         <div class="row">
           <button ng-repeat="card in op.onTheTable()" class="col button"  ng-class="card.notice?'button-assertive':'button-stable'">    {{card.display()}}
           </button>
@@ -26,14 +29,14 @@
 
     <div class="card">
       <ion-scroll zooming="true" direction="x" ng-show="me.hand.length>0">
-        <div class="item item-divider">{{me.name}}'s Hand:</div>
+        <div class="item item-divider game-item">{{me.name}}'s Hand:</div>
         <div class="row">
           <button ng-repeat="card in me.hand" class="col button button-stable" ng-click="me.play(card,me.hand,true,askHuman)"> {{card.display()}}
         </div>
         </button>
       </ion-scroll>
       <div ng-show="me.onTheTable().length>0">
-        <div class="item item-divider">In front of {{me.name}}:</div>
+        <div class="item item-divider game-item">In front of {{me.name}}:</div>
         <div class="row">
           <button ng-repeat="card in me.onTheTable()" class="col button" ng-click="me.play(card,me.faceUp.length>0?me.faceUp:me.faceDown,false,askHuman)" ng-class="card.notice?'button-assertive':'button-stable'"> {{card.display()}} </button>
         </div>

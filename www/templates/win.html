@@ -1,13 +1,18 @@
-<ion-view title="You {{text}}">
+<ion-view title="You {{text}}" ng-class="['game-over', text]">
   <ion-nav-buttons side="left">
     <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
   </ion-nav-buttons>
   <ion-content class="has-header" ng-init="adjustStats()">
-    <div  ng-show="won">
-      <i class="win icon ion-android-checkmark"></i>
-    </div>
+    <br/><br/><br/><br/>
     <div  ng-hide="won">
-      <i class="lose icon ion-android-close"></i>
+      <p class="lose">You Lose!</p>
+    </div>
+    <div  ng-show="won">
+      <p class="win">You Win!</p>
+    </div>
+    <br/><br/>
+    <div>
+      <p><button class="button button-positive" ng-click="newgame()">Play Again</button><p>
     </div>
   </ion-content>
 </ion-view>

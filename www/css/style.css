@@ -1,10 +1,10 @@
 .win {
-	font-size: 2000%;
+	font-size: 500%;
 	color:teal;
 }
 
 .lose {
-	font-size: 2000%;
+	font-size: 500%;
 	color:red;
 }
 
@@ -22,4 +22,24 @@
 
 #you-name {
 	color:blue;
+}
+
+.game {
+	background-color: GreenYellow;
+}
+
+.card {
+	background-color: MediumSpringGreen;
+}
+
+.item.game-item {
+	background-color: Peru;
+}
+
+.game-over.Win {
+	background-color: Goldenrod;
+}
+
+.game-over.Lose {
+	background-color: FireBrick;
 }
