@@ -57,13 +57,13 @@ angular.module('pleaseApp.services', [])
       }
 
       this.canPlay = function(on){
-        if (on != null && on.value == 'Seven')
+        if (on !== null && on.value == 'Seven')
           return this.wild() ||
                game.cardValues.indexOf(this.value) <=
                   game.cardValues.indexOf(on.value);
-        else return this.wild() || on == null || on.wild() ||
-            game.cardValues.indexOf(this.value) 
-                  >= game.cardValues.indexOf(on.value); 
+        else return this.wild() || on === null || on.wild() ||
+            game.cardValues.indexOf(this.value) >=
+                  game.cardValues.indexOf(on.value); 
       }
 
       this.onPlay = function(){
@@ -94,6 +94,7 @@ angular.module('pleaseApp.services', [])
       this.name = name;
       this.faceDown = [];
       this.mayPlay = false;
+      this.sortOrder = -1;
 
       this.drawFaceDownCards = function(deck){
         for (var i = 0; i < 3; i++) {
@@ -110,7 +111,7 @@ angular.module('pleaseApp.services', [])
               return game.cardValues.indexOf(card.value)
             }).value()[0];
 
-        if (bestCardToPlay == undefined && this.hand.length==0){
+        if (bestCardToPlay === undefined && this.hand.length === 0){
           from = this.faceUp;
           bestCardToPlay = _(this.faceUp).filter(function(card){
             return card.canPlay(game.topCard());
@@ -118,14 +119,14 @@ angular.module('pleaseApp.services', [])
                 return game.cardValues.indexOf(card.value)
               }).value()[0];
 
-          if (bestCardToPlay == undefined && 
-                    this.faceUp.length==0){
+          if (bestCardToPlay === undefined && 
+                    this.faceUp.length === 0){
             from = this.faceDown;
             bestCardToPlay = this.faceDown[0];
           }
         }
 
-        if (bestCardToPlay != undefined){
+        if (bestCardToPlay !== undefined){
           this.play(bestCardToPlay, from, from == this.hand);
         }
         else {
@@ -135,7 +136,9 @@ angular.module('pleaseApp.services', [])
 
       this.play = function(card,from,fromHand,askHuman){
         if (!this.mayPlay) return false;
-        if (!this.ai && askHuman==undefined) throw 'Must be able to ask';
+        if (!this.ai && askHuman === undefined){
+          throw 'Must be able to ask';
+        }
         var valid = false;
         if (fromHand){
           valid = card.canPlay(game.topCard());
@@ -174,11 +177,12 @@ angular.module('pleaseApp.services', [])
         for (var i = 0; i < all.length; i++) {
           game.cardPile[game.cardPile.length] = all[i];
           from.splice(from.indexOf(all[i]), 1);
-        };
+        }
 
         this.refillHand();
         
-        if (this.faceDown.length == 0 && this.hand.length == 0) {
+        if (this.faceDown.length === 0 &&
+                 this.hand.length === 0) {
             $timeout(_.bind(this.win,this),15*gameSpeed);
         }
         else {
@@ -210,10 +214,10 @@ angular.module('pleaseApp.services', [])
         $timeout(_.bind(function(){
           for (var i = 0; i < game.cardPile.length; i++) {
             this.hand[this.hand.length] = game.cardPile[i];
-          };
+          }
           game.message = this.name + 
-                " picked up "
-                + game.cardPile.length +
+                " picked up " +
+                game.cardPile.length +
                 " cards";
           game.messageExpire = game.turn + 2;
           game.cardPile = [];
@@ -232,9 +236,17 @@ angular.module('pleaseApp.services', [])
       }
 
       this.sortHand = function(){
-        this.hand = _.sortBy(this.hand, function(card){
-          return -game.cardValues.indexOf(card.value);
-        })
+        this.hand = _.sortBy(this.hand, _.bind(
+          function(card){
+            return this.sortOrder*game.cardValues.indexOf(card.value);
+        }, this))
+
+        if (!this.ai){
+          this.sortOrder = 1;
+          $timeout(_.bind(function(){
+            this.sortOrder = -1;
+          }, this),20*gameSpeed)
+        }
       }
 
       this.askForAllCards = function(card, from, callback, askHuman){
@@ -279,7 +291,7 @@ angular.module('pleaseApp.services', [])
       this.onTheTable = function(){
         table = [];
         for (var i = 0; i < this.faceDown.length; i++) {
-          if (this.faceUp[i] != null)
+          if (this.faceUp[i] !== null)
             table[i] = this.faceUp[i];
           else table[i] = this.faceDown[i];
         }
@@ -321,7 +333,7 @@ angular.module('pleaseApp.services', [])
     }
 
     game.start = function(){
-      if (game.players[0] != undefined)
+      if (game.players[0] !== undefined)
         game.players[0].mayPlay = true;
     }
 

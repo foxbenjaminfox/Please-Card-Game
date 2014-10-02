@@ -120,10 +120,10 @@ angular.module('pleaseApp.controllers', [])
         }
         else
           $scope.play[i] = null;
-      };
+      }
       if (someCard)
         callback(card,from,_.filter($scope.play,function(card){
-          return card != null;
+          return card !== null;
         }));
     }
 
