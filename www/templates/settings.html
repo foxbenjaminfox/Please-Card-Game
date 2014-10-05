@@ -27,7 +27,7 @@
 
       <br/>
 
-      <button class="button button-balanced" ng-show="extras && (localStorage.autosort == 'none')" ng-click="localStorage.autosort = 'normal'">
+      <button class="button button-balanced" ng-show="extras && (localStorage.autosort == 'none' || !localStorage.autosort)" ng-click="localStorage.autosort = 'normal'">
         Enable Autosorting
       </button>
 
