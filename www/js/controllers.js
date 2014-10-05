@@ -21,9 +21,9 @@ angular.module('pleaseApp.controllers', [])
 
   $scope.needsNames = function(){
     return ($window.localStorage.youName === "Player" &&
-        $window.localStorage.youName === "Computer" &&
-        $window.localStorage.wonGames === "0" &&
-        $window.localStorage.lostGames === "0")
+        $window.localStorage.opponentName === "Computer" &&
+        $window.localStorage.wonGames == 0 &&
+        $window.localStorage.lostGames == 0);
   }
 
   $scope.playGame = function() {
@@ -186,6 +186,11 @@ angular.module('pleaseApp.controllers', [])
   }
   if (!$scope.localStorage.opponentName){
     $scope.localStorage.opponentName = "Computer";
+  }
+
+  $scope.resetScore = function(){
+    $window.localStorage.lostGames = 0;
+    $window.localStorage.wonGames = 0;
   }
 
 });
