@@ -43,3 +43,7 @@
 .game-over.Lose {
 	background-color: FireBrick;
 }
+
+.no-names {
+	color:red;
+}

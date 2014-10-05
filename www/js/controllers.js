@@ -19,9 +19,16 @@ angular.module('pleaseApp.controllers', [])
                   ($scope.wonGames/$scope.totalGames)*100:0;
   }
 
+  $scope.needsNames = function(){
+    return ($window.localStorage.youName === "Player" &&
+        $window.localStorage.youName === "Computer" &&
+        $window.localStorage.wonGames === "0" &&
+        $window.localStorage.lostGames === "0")
+  }
+
   $scope.playGame = function() {
     var me = new game.Player(
-      $window.localStorage.youName || "You", false);
+      $window.localStorage.youName || "Player", false);
 
     for (var i = 0; i < $scope.hand.length; i++){
       if ($scope.handDown[i])
@@ -32,7 +39,7 @@ angular.module('pleaseApp.controllers', [])
     me.drawFaceDownCards(game.deck);
 
     var opponent = new game.Player(
-        $window.localStorage.opponentName || "Opponent",
+        $window.localStorage.opponentName || "Computer",
          true);
     opponent.generateAIHand();
     opponent.drawFaceDownCards(game.deck);
@@ -175,10 +182,10 @@ angular.module('pleaseApp.controllers', [])
   }
 
   if (!$scope.localStorage.youName){
-    $scope.localStorage.youName = "You";
+    $scope.localStorage.youName = "Player";
   }
   if (!$scope.localStorage.opponentName){
-    $scope.localStorage.opponentName = "Opponent";
+    $scope.localStorage.opponentName = "Computer";
   }
 
 });

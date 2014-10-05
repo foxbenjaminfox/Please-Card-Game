@@ -4,6 +4,13 @@
   </ion-nav-buttons>
   <ion-content class="has-header">
     <ul class="list">
+      <div class="item item-button-right no-names" ng-show="needsNames()">
+        You can customize the names given to you and your opponent on the settings page
+        <a class="button button-assertive button-outline" href="#/app/settings">
+            <i class="icon ion-chevron-right"></i>
+        </a>
+      </div>
+
     	<div class="item item-button-right">
     		New Game
     		<a class="button button-positive button-outline" ng-click="newgame()">
