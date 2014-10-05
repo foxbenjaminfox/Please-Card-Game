@@ -51,8 +51,12 @@ angular.module('pleaseApp.controllers', [])
   }
 
   $scope.newgame = function() {
-    game.generate(
-      Number($window.localStorage.speed || 100));
+    game.generate({
+      speed:Number($window.localStorage.speed || 100),
+      autosort:($window.localStorage.autosort === 'normal' ||
+                $window.localStorage.autosort === 'reverse'),
+      reverseAutosort:$window.localStorage.autosort === 'reverse',
+    });
     $scope.makeHand();
     $scope.modal.show();
   }
@@ -192,5 +196,4 @@ angular.module('pleaseApp.controllers', [])
     $window.localStorage.lostGames = 0;
     $window.localStorage.wonGames = 0;
   }
-
 });

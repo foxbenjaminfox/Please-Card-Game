@@ -3,7 +3,7 @@ angular.module('pleaseApp.services', [])
 .factory('game', function($timeout, $location){
   gameObject = {};
 
-  gameObject.generate = function(gameSpeed){
+  gameObject.generate = function(options){
     var game = this;
 
     game.cardValues = [
@@ -164,7 +164,7 @@ angular.module('pleaseApp.services', [])
                   from.splice(from.indexOf(card), 1);
                   card.notice = false;
                   this.pickUp();
-                },this), 20*gameSpeed);
+                },this), 20*options.speed);
                 return;
               }
             }
@@ -178,7 +178,7 @@ angular.module('pleaseApp.services', [])
         }
       }
       this.executeCardPlaying = function(card, from, all){
-        var wait = this.ai?0:6.5*gameSpeed;
+        var wait = this.ai?0:6.5*options.speed;
 
         if (card.hidden) wait = 1000;
         card.hidden = false;
@@ -191,7 +191,7 @@ angular.module('pleaseApp.services', [])
         
         if (this.faceDown.length === 0 &&
                  this.hand.length === 0) {
-            $timeout(_.bind(this.win,this),15*gameSpeed);
+            $timeout(_.bind(this.win,this),15*options.speed);
         }
         else {
           this.mayPlay = card.canPlayAgain();
@@ -200,7 +200,7 @@ angular.module('pleaseApp.services', [])
             if (this.ai) {
               $timeout(_.bind(function(){
                 this.doAIPlay();
-              },this), 4*gameSpeed);
+              },this), 4*options.speed);
             }
           }
           else {
@@ -234,9 +234,13 @@ angular.module('pleaseApp.services', [])
                 " cards";
           game.messageExpire = game.turn + 2;
           game.cardPile = [];
+
+          if (options.autosort && !this.ai)
+            this.sortHand(options.reverseAutosort?-1:1,true)
+
           game.turn++;
           game.passTurn()
-        },this),this.ai?10*gameSpeed:0)
+        },this),this.ai?10*options.speed:0)
       }
 
       this.refillHand = function(){
@@ -245,20 +249,25 @@ angular.module('pleaseApp.services', [])
           if (card)
             this.hand[this.hand.length] = card;
           else break;
+
+        if (options.autosort && !this.ai)
+            this.sortHand(options.reverseAutosort?-1:1,true)
         }
       }
 
-      this.sortHand = function(){
+      this.sortHand = function(order,auto){
         this.hand = _.sortBy(this.hand, _.bind(
           function(card){
-            return this.sortOrder*game.cardValues.indexOf(card.value);
+            return ((order || 1) *
+                    this.sortOrder *
+                    game.cardValues.indexOf(card.value));
         }, this))
 
-        if (!this.ai){
+        if (!this.ai && !auto){
           this.sortOrder = 1;
           $timeout(_.bind(function(){
             this.sortOrder = -1;
-          }, this),20*gameSpeed)
+          }, this),20*options.speed)
         }
       }
 
@@ -346,8 +355,13 @@ angular.module('pleaseApp.services', [])
     }
 
     game.start = function(){
-      if (game.players[0] !== undefined)
-        game.players[0].mayPlay = true;
+      var firstPlayer = game.players[0];
+      if (firstPlayer !== undefined){
+        firstPlayer.mayPlay = true;
+        if (options.autosort && !firstPlayer.ai){
+          firstPlayer.sortHand(options.reverseAutosort?-1:1,true)
+        }
+      }
     }
 
     game.players = [];

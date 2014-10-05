@@ -18,7 +18,6 @@
         {{extras?'Less':'More'}}
       </button>
 
-
       <div class="item range range-positive" ng-show="extras">
         <button class="button button-light" ng-click="localStorage.speed=100">Game Speed</button>  0%
         <input type="range" name="volume" min="0" max="300"
@@ -27,7 +26,19 @@
       </div>
 
       <br/>
-      
+
+      <button class="button button-balanced" ng-show="extras && (localStorage.autosort == 'none')" ng-click="localStorage.autosort = 'normal'">
+        Enable Autosorting
+      </button>
+
+      <button class="button button-positive" ng-show="extras && (localStorage.autosort == 'normal')" ng-click="localStorage.autosort = 'reverse'">
+        Reverse Autosorting
+      </button>
+
+      <button class="button button-assertive" ng-show="extras && (localStorage.autosort == 'reverse')" ng-click="localStorage.autosort = 'none'">
+        Disable Autosorting
+      </button>
+
       <button class="button button-assertive" ng-show="extras" ng-click="resetScore()">
         Reset Score
       </button>
