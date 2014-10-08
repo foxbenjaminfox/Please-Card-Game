@@ -70,9 +70,12 @@ angular.module('pleaseApp.controllers', [])
   }
 
   $scope.canPlaceCard = function(index) {
-    if ($scope.numCardsDown() >= 3)
+    if ($scope.numCardsDown() >= 3){
       return !($scope.handDown[index]);
-    else return false;
+    }
+    else {
+      return false;
+    }
   }
 
   $scope.makeHand = function() {
@@ -154,10 +157,12 @@ angular.module('pleaseApp.controllers', [])
 
   $scope.adjustStats = function(){
     if (!$scope.adjusted){
-      if ($window.localStorage.wonGames)
-          $window.localStorage.wonGames++;
-      else
-          $window.localStorage.wonGames = 1;
+      if ($window.localStorage.wonGames){
+        $window.localStorage.wonGames++;
+      }
+      else {
+        $window.localStorage.wonGames = 1;
+      }
     }
     $scope.adjusted = true;
   }
@@ -169,10 +174,12 @@ angular.module('pleaseApp.controllers', [])
 
   $scope.adjustStats = function(){
     if (!$scope.adjusted){
-      if ($window.localStorage.lostGames)
+      if ($window.localStorage.lostGames){
           $window.localStorage.lostGames++;
-      else
+      }
+      else {
           $window.localStorage.lostGames = 1;
+      }
     }
     $scope.adjusted = true;
   }
