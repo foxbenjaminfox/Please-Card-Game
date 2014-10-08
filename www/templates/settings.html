@@ -28,15 +28,15 @@
       <br/>
 
       <button class="button button-balanced" ng-show="extras && (localStorage.autosort == 'none' || !localStorage.autosort)" ng-click="localStorage.autosort = 'normal'">
-        Enable Autosorting
+        Autosorting Off
       </button>
 
       <button class="button button-positive" ng-show="extras && (localStorage.autosort == 'normal')" ng-click="localStorage.autosort = 'reverse'">
-        Reverse Autosorting
+        Autosorting On
       </button>
 
       <button class="button button-assertive" ng-show="extras && (localStorage.autosort == 'reverse')" ng-click="localStorage.autosort = 'none'">
-        Disable Autosorting
+        Autosorting Reversed
       </button>
 
       <button class="button button-assertive" ng-show="extras" ng-click="resetScore()">
