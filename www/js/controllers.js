@@ -110,9 +110,8 @@ angular.module('pleaseApp.controllers', [])
       return (otherCard.value === card.value);
     });
 
-    $scope.play = _.map(from, function(otherCard){
-      return otherCard.value === card.value &&
-                      otherCard.suit === card.suit;
+    $scope.play = _.map($scope.playable, function(otherCard){
+      return otherCard.suit === card.suit;
     });
 
     $scope.submitText = function(){
