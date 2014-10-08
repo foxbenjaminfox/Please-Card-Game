@@ -14,6 +14,8 @@ Assuming you have the Ionic framework installed, `ionic build android` builds th
 
 It wouldn't be much work to build it for other platforms as well.
 
+If you want a precompiled version to try out, you can download [this prebuilt APK](https://app.box.com/s/ps7b0kergzdefu8kvkhz).
+
 ## How to play
 
 Each player starts with three random cards face down in front of him or her, and six cards in his or her hand.
@@ -45,6 +47,5 @@ Some cards are considered special:
 Playing the game in the app should be pretty self-explanatory. You tap a card to play it, and you can adjust the settings
 (like what you and your opponent are called) in the settings menu. To pick up the discard pile, tap the icon in the lower right corner,
 and if you tap the icon in the bottom left, it will sort your hand. Double tap it in order to reverse the direction of the sorting.
-
-
+Alternately, in the settings screen, you can set your hand to automaticly sort itself.
 
